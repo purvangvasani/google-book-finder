@@ -20,4 +20,11 @@ export class AppComponent {
       (response) => { this.bookList = response; console.log(this.bookList) },
       (error) => { console.log(error); });
   }
+
+  clear = () => {
+    this.bookName = "";
+    this.bookList = {
+      items: []
+    };
+  }
 }
