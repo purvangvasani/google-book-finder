@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div class="container-fluid">
+    <div style="float: left;">
+      <a class="navbar-brand" href="#">
+        <h1>Google Book Finder</h1>
+        <h6>Developed By Purvang Vasani</h6>
+      </a>
+    </div>
+    <div style="float: right;">
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="bookName"
+          name="bookName">
+        <button class="btn btn-outline-success" type="submit" (click)="searchBook()">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid" style="padding: 2rem;" *ngIf="bookList?.items.length">
+  <h1>Book Result: {{bookName}}</h1>
+  <div class="row">
+    <ng-container *ngFor="let book of bookList.items">
+      <div class="col-md-3" style="padding-bottom: 1rem;">
+        <div class="card" style="width: 20rem;">
+          <img class="card-img-top" src="{{book?.volumeInfo?.imageLinks?.thumbnail}}" alt="{{book?.volumeInfo?.title}}" style="width: 19.9rem; height: 20rem;">
+          <div class="card-body">
+            <h5 class="card-title" *ngIf="book?.volumeInfo?.title">{{book?.volumeInfo?.title || '-'}}</h5>
+            <h6 class="card-title" *ngIf="book?.volumeInfo?.authors && book?.volumeInfo?.authors.length">By {{book?.volumeInfo?.authors?.join(', ') || '--'}}</h6>
+            <h6 class="card-title">{{book?.volumeInfo?.publishedDate || ''}}</h6>
+            <p class="card-text" *ngIf="book?.volumeInfo?.description">{{book?.volumeInfo?.description.substr(0, 100)}}</p>
+            <a href="#" class="btn btn-secondary">More</a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div class="container" *ngIf="!bookList?.items.length" style="padding: 2rem;">
+  <div class="alert alert-primary" role="alert">
+    No data available!
+  </div>
+</div>
